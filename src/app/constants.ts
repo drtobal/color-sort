@@ -1,4 +1,4 @@
-import { Range } from "./types";
+import { NewGame, Range } from "./types";
 
 export const DEFAULT_VARIANTS: number = 5;
 
@@ -15,6 +15,12 @@ export const RANGE_REPEATS: Range = { min: 1, max: 3 };
 export const RANGE_BOTTLE_SIZE: Range = { min: 3, max: 5 };
 
 export const BOTTLE_MAX: number = 90;
+
+export const HAS_LS: boolean = !!(typeof window !== 'undefined' && window.localStorage);
+
+export const LEVELS: NewGame[] = [
+    { name: 'Level 1', variants: 3, repeats: 1, bottleSize: 3 },
+];
 
 export const COLORS: string[] = [
     '', // unused, colors starts at 1
