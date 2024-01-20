@@ -1,11 +1,11 @@
 <div class="header">
     <div class="container">
-        {{gameName}}
+        <app-new-game-button></app-new-game-button>
     </div>
 </div>
 
-<div>
-    <app-new-game-button></app-new-game-button>
+<div class="container text-center">
+    {{gameName}}
 </div>
 
 <div class="bottles" cdkDropListGroup>
@@ -19,11 +19,13 @@
     }
 </div>
 
+<!--
 @if (isCompleted) {
 @defer (when isCompleted) {
 <app-new-game></app-new-game>
 }
 }
+-->
 
 <div style="text-align: center;">
     <br />

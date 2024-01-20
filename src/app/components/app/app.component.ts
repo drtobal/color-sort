@@ -48,13 +48,21 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      this.bottles = this.sorterService.generateBottles(this.variants, this.repeats, this.bottleSize);
+      this.nextLevel();
+      // this.bottles = this.sorterService.generateBottles(this.variants, this.repeats, this.bottleSize);
       this.newGameSub = this.gameService.newGame.subscribe(this.onNewGame.bind(this));
     }
   }
 
   ngOnDestroy(): void {
     this.newGameSub?.unsubscribe();
+  }
+
+  nextLevel(): void {
+    const level = this.gameService.getNextLevel();
+    if (level) {
+      this.onNewGame(level);
+    }
   }
 
   onNewGame(newGame: NewGame): void {
@@ -74,6 +82,14 @@ export class AppComponent implements OnInit, OnDestroy {
     return { bottle, index };
   }
 
+  checkCompleted(): void {
+    this.isCompleted = this.sorterService.checkBottlesFinished(this.bottles, this.bottleSize);
+    if (this.isCompleted) {
+      this.gameService.saveCompletedLevel(this.gameName);
+      this.nextLevel();
+    }
+  }
+
   cdkDropListDropped(event: CdkDragDrop<any>): void {
     if (event.container.data.length === 1) {
       const sourceIdx = event.item.data.index;
@@ -84,8 +100,8 @@ export class AppComponent implements OnInit, OnDestroy {
         if (result.moved) {
           this.bottles[sourceIdx] = result.source;
           this.bottles[targetIdx] = result.target;
-          this.isCompleted = this.sorterService.checkBottlesFinished(this.bottles, this.bottleSize);
           this.changeDetectorRef.detectChanges();
+          this.checkCompleted();
         }
       }
     }

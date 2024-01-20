@@ -18,8 +18,26 @@ export const BOTTLE_MAX: number = 90;
 
 export const HAS_LS: boolean = !!(typeof window !== 'undefined' && window.localStorage);
 
+export const LAST_GAME_LEVEL_LS = 'liquid-sort-last-game-level';
+
 export const LEVELS: NewGame[] = [
-    { name: 'Level 1', variants: 3, repeats: 1, bottleSize: 3 },
+    { name: 'Level 1', variants: 2, repeats: 1, bottleSize: 2 },
+    { name: 'Level 2', variants: 3, repeats: 1, bottleSize: 2 },
+    { name: 'Level 3', variants: 3, repeats: 1, bottleSize: 3 },
+    { name: 'Level 4', variants: 3, repeats: 1, bottleSize: 4 },
+    { name: 'Level 5', variants: 4, repeats: 1, bottleSize: 3 },
+    { name: 'Level 6', variants: 5, repeats: 1, bottleSize: 3 },
+    { name: 'Level 7', variants: 6, repeats: 1, bottleSize: 3 },
+    { name: 'Level 8', variants: 4, repeats: 1, bottleSize: 4 },
+    { name: 'Level 9', variants: 5, repeats: 1, bottleSize: 4 },
+    { name: 'Level 10', variants: 6, repeats: 1, bottleSize: 4 },
+    { name: 'Level 11', variants: 7, repeats: 1, bottleSize: 3 },
+    { name: 'Level 12', variants: 8, repeats: 1, bottleSize: 3 },
+    { name: 'Level 13', variants: 9, repeats: 1, bottleSize: 3 },
+    { name: 'Level 14', variants: 4, repeats: 2, bottleSize: 3 },
+    { name: 'Level 15', variants: 4, repeats: 2, bottleSize: 4 },
+    { name: 'Level 16', variants: 5, repeats: 2, bottleSize: 3 },
+    { name: 'Level 17', variants: 5, repeats: 2, bottleSize: 4 },
 ];
 
 export const COLORS: string[] = [
