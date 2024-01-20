@@ -14,3 +14,14 @@ export type BottleDragData = {
     index: number;
     bottle: Bottle;
 };
+
+export type NewGame = {
+    variants: number;
+    repeats: number;
+    name: string;
+};
+
+export type Range = {
+    min: number;
+    max: number;
+};

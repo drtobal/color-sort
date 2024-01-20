@@ -4,14 +4,14 @@ import { RouterOutlet } from '@angular/router';
 import { SorterService } from '../../services/sorter/sorter.service';
 import { Bottle, BottleDragData } from '../../types';
 import { BottleComponent } from '../bottle/bottle.component';
-import { CdkDragDrop, CdkDragRelease, CdkDragStart, DragDropModule } from '@angular/cdk/drag-drop';
-
-const DRAG_CLASS = 'dragging';
+import { CdkDragDrop, CdkDragRelease, DragDropModule } from '@angular/cdk/drag-drop';
+import { NewGameComponent } from '../new-game/new-game.component';
+import { DEFAULT_BOTTLE_SIZE, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '../../constants';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, BottleComponent, DragDropModule],
+  imports: [CommonModule, RouterOutlet, BottleComponent, DragDropModule, NewGameComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,9 +22,11 @@ export class AppComponent implements OnInit {
   /** check if the code is running in server side or browser */
   isBrowser: boolean = false;
 
-  variants: number = 3;
+  variants: number = DEFAULT_VARIANTS;
 
-  repeats: number = 1;
+  repeats: number = DEFAULT_REPEATS;
+
+  bottleSize: number = DEFAULT_BOTTLE_SIZE;
 
   isCompleted: boolean = false;
 
@@ -55,12 +57,12 @@ export class AppComponent implements OnInit {
       const sourceIdx = event.item.data.index;
       const targetIdx = event.container.data[0].index;
       if (this.bottles[sourceIdx] && this.bottles[targetIdx]) {
-        const result = this.sorterService.moveLiquid(this.bottles[sourceIdx], this.bottles[targetIdx]);
+        const result = this.sorterService.moveLiquid(this.bottles[sourceIdx], this.bottles[targetIdx], this.bottleSize);
 
         if (result.moved) {
           this.bottles[sourceIdx] = result.source;
           this.bottles[targetIdx] = result.target;
-          this.isCompleted = this.sorterService.checkBottlesFinished(this.bottles, this.variants);
+          this.isCompleted = this.sorterService.checkBottlesFinished(this.bottles, this.bottleSize);
           this.changeDetectorRef.detectChanges();
         }
       }

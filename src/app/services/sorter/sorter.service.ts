@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { COLORS } from '../../constants';
+import { COLORS, DEFAULT_BOTTLE_SIZE, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '../../constants';
 import { Bottle, MoveLiquidAction } from '../../types';
 
 @Injectable({
@@ -9,24 +9,24 @@ export class SorterService {
 
   constructor() { }
 
-  generateBottles(variants: number = 3, repeats: number = 1): Bottle[] {
-    const liquids = this.transformBottles(this.suffle(this.multipliArray(this.range(1, variants), variants, repeats)), variants);
+  generateBottles(variants: number = DEFAULT_VARIANTS, repeats: number = DEFAULT_REPEATS, bottleSize: number = DEFAULT_BOTTLE_SIZE): Bottle[] {
+    const liquids = this.transformBottles(this.suffle(this.multipliArray(this.range(1, variants), bottleSize, repeats)), bottleSize);
     return liquids.concat([[]]);
   }
 
-  multipliArray<T>(items: T[], variants: number, times: number): T[] {
+  multipliArray<T>(items: T[], bottleSize: number, repeats: number): T[] {
     const baseArray: T[] = JSON.parse(JSON.stringify(items));
-    for (let x = 0; x < times; x++) {
-      for (let y = 1; y < variants; y++) {
+    for (let x = 0; x < repeats; x++) {
+      for (let y = 1; y < bottleSize; y++) {
         items = items.concat(JSON.parse(JSON.stringify(baseArray)) as T[]);
       }
     }
     return items;
   }
 
-  moveLiquid(source: Bottle, target: Bottle, limit: number = 3): MoveLiquidAction {
+  moveLiquid(source: Bottle, target: Bottle, bottleSize: number = DEFAULT_BOTTLE_SIZE): MoveLiquidAction {
     let moved: boolean = false;
-    if (target.length >= limit) return { source, target, moved };
+    if (target.length >= bottleSize) return { source, target, moved };
 
     if (source.length === 0) return { source, target, moved };
 
@@ -41,15 +41,15 @@ export class SorterService {
     return { source, target, moved };
   }
 
-  checkBottlesFinished(bottles: Bottle[], variants: number = 3): boolean {
+  checkBottlesFinished(bottles: Bottle[], bottleSize: number = DEFAULT_BOTTLE_SIZE): boolean {
     const bottlesLength = bottles.length;
     for (let x = 0; x < bottlesLength; x++) {
       const bottleLength = bottles[x].length;
-      if (bottleLength > 0 && bottleLength !== variants) {
+      if (bottleLength > 0 && bottleLength !== bottleSize) {
         return false;
       } else {
         let startVariant = bottles[x][0];
-        for (let y = 1; y < variants; y++) {
+        for (let y = 1; y < bottleSize; y++) {
           if (bottles[x][y] !== startVariant) {
             return false;
           }

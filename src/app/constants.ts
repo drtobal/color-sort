@@ -1,4 +1,16 @@
-export const LIQUIDS: number = 4;
+import { Range } from "./types";
+
+export const DEFAULT_VARIANTS: number = 5;
+
+export const DEFAULT_REPEATS: number = 1;
+
+export const DEFAULT_BOTTLE_SIZE: number = 3;
+
+export const RANGE_VARIANTS: Range = { min: 3, max: 10 };
+
+export const RANGE_REPEATS: Range = { min: 1, max: 3 };
+
+export const RANGE_BOTTLE_SIZE: Range = { min: 3, max: 5 };
 
 export const BOTTLE_MAX: number = 90;
 

@@ -1,7 +1,7 @@
 import { animate, query, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { BOTTLE_MAX } from '../../constants';
+import { BOTTLE_MAX, DEFAULT_BOTTLE_SIZE } from '../../constants';
 import { SorterService } from '../../services/sorter/sorter.service';
 import { AnyObject, Bottle } from '../../types';
 
@@ -28,7 +28,7 @@ const COLOR_LEAVE = style({ 'max-height': '2rem' });
 export class BottleComponent {
   @Input() bottle?: Bottle;
 
-  @Input() variants: number = 3;
+  @Input() bottleSize: number = DEFAULT_BOTTLE_SIZE;
 
   constructor(
     private sorterService: SorterService,
@@ -38,7 +38,7 @@ export class BottleComponent {
   getColorStyle(variant: number): AnyObject {
     return {
       'background-color': this.sorterService.getVariantColor(variant),
-      height: `${BOTTLE_MAX / this.variants}%`,
+      height: `${BOTTLE_MAX / this.bottleSize}%`,
     };
   }
 }
