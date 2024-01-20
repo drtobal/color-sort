@@ -32,9 +32,9 @@ export class SorterService {
 
     // if (target.length > 0 && source[0] !== target[0]) return { source, target, moved };
 
-    const variant = source.shift();
+    const variant = source.pop();
     if (typeof variant !== 'undefined') {
-      target.unshift(variant);
+      target.push(variant);
       moved = true;
     }
 

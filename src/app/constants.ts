@@ -1,5 +1,7 @@
 export const LIQUIDS: number = 4;
 
+export const BOTTLE_MAX: number = 90;
+
 export const COLORS: string[] = [
     '', // unused, colors starts at 1
     '#D32F2F',

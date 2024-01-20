@@ -3,7 +3,8 @@
     <div cdkDropList (cdkDropListDropped)="cdkDropListDropped($event)" [cdkDropListData]="[getDragData(bottle, index)]"
         class="bottle-container">
         <app-bottle class="bottle" cdkDrag (cdkDragEnded)="cdkDragEnded($event)"
-            [cdkDragData]="getDragData(bottle, index)" [bottle]="bottle" [variants]="variants"></app-bottle>
+            [cdkDragData]="getDragData(bottle, index)" [bottle]="bottle" [variants]="variants">
+        </app-bottle>
     </div>
     }
 </div>
