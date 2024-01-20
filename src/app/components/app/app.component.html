@@ -1,5 +1,14 @@
-<div class="bottles">
-@for (bottle of bottles; track $index) {
-    <app-bottle [bottle]="bottle" [variants]="variants"></app-bottle>
-}
+<div class="bottles" cdkDropListGroup>
+    @for (bottle of bottles; track index; let index = $index) {
+    <div cdkDropList (cdkDropListDropped)="cdkDropListDropped($event)" [cdkDropListData]="[getDragData(bottle, index)]"
+        class="bottle-container">
+        <app-bottle class="bottle" cdkDrag (cdkDragEnded)="cdkDragEnded($event)"
+            [cdkDragData]="getDragData(bottle, index)" (cdkDragStarted)="cdkDragStarted($event)" [bottle]="bottle"
+            [variants]="variants"></app-bottle>
+    </div>
+    }
 </div>
+
+{{bottles | json}}
+<br/>
+<p>finished: {{isCompleted}}</p>
