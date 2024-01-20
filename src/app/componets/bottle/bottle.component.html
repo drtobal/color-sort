@@ -1,0 +1,5 @@
+@if (bottle) {
+    @for (item of bottle; track $index) {
+        <div class="color" [ngStyle]="getColorStyle(item)"></div>
+    }
+}

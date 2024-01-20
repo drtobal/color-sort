@@ -1,0 +1,5 @@
+<div class="bottles">
+@for (bottle of bottles; track $index) {
+    <app-bottle [bottle]="bottle" [variants]="variants"></app-bottle>
+}
+</div>
