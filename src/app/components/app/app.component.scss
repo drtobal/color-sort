@@ -10,6 +10,7 @@
         overflow: hidden !important;
         opacity: 0 !important;
         border: none !important;
+        display: none !important;
     }
 }
 
@@ -21,8 +22,12 @@
     justify-content: center;
 }
 
-.dragging {
-    z-index: 3;
+.bottle {
+    cursor: pointer;
+
+    &.cdk-drag-dragging {
+        z-index: 3;
+    }
 }
 
 .drop {

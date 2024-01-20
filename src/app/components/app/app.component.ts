@@ -42,18 +42,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  cdkDragStarted(event: CdkDragStart): void {
-    // console.log(event);
-    (event.source.element.nativeElement as HTMLDivElement).classList.add(DRAG_CLASS);
-  }
-
   cdkDragEnded(event: CdkDragRelease): void {
-    // console.log(event);
     event.source.reset();
-    (event.source.element.nativeElement as HTMLDivElement).classList.remove(DRAG_CLASS);
-    // setTimeout(() => {
-    //   (event.event.target as HTMLDivElement).style.transform = 'none';      
-    // }, 50);
   }
 
   getDragData(bottle: Bottle, index: number): BottleDragData {

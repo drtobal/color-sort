@@ -1,4 +1,4 @@
-:host {
+.bottle {
     display: flex;
     flex-direction: column;
     height: 5rem;
@@ -17,4 +17,20 @@
 
 * {
     pointer-events: none;
+}
+
+::ng-deep {
+    app-bottle.cdk-drag-preview .bottle {
+        transform: rotateZ(35deg);
+        animation: drag-preview .25s linear;
+    }
+}
+
+@keyframes drag-preview {
+    0% {
+        transform: rotateZ(0);
+    }
+    100% {
+        transform: rotateZ(35deg);
+    }
 }

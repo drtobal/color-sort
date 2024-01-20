@@ -30,7 +30,7 @@ export class SorterService {
 
     if (source.length === 0) return { source, target, moved };
 
-    if (target.length > 0 && source[0] !== target[0]) return { source, target, moved };
+    // if (target.length > 0 && source[0] !== target[0]) return { source, target, moved };
 
     const variant = source.shift();
     if (typeof variant !== 'undefined') {

@@ -1,6 +1,7 @@
 @if (bottle) {
+<div class="bottle">
     @for (item of bottle; track $index) {
-        <div class="color" [ngStyle]="getColorStyle(item)"></div>
+    <div class="color" [ngStyle]="getColorStyle(item)"></div>
     }
+</div>
 }
-<ng-content select="[dropElement]"></ng-content>
