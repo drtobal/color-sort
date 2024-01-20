@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SorterService } from '../../services/sorter/sorter.service';
 import { Bottle, BottleDragData } from '../../types';
-import { BottleComponent } from '../../componets/bottle/bottle.component';
+import { BottleComponent } from '../bottle/bottle.component';
 import { CdkDragDrop, CdkDragRelease, CdkDragStart, DragDropModule } from '@angular/cdk/drag-drop';
 
 const DRAG_CLASS = 'dragging';
