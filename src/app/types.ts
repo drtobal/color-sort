@@ -18,6 +18,7 @@ export type BottleDragData = {
 export type NewGame = {
     variants: number;
     repeats: number;
+    bottleSize: number;
     name: string;
 };
 

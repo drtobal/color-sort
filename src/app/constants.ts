@@ -6,6 +6,8 @@ export const DEFAULT_REPEATS: number = 1;
 
 export const DEFAULT_BOTTLE_SIZE: number = 3;
 
+export const DEFAULT_GAME_NAME: string = 'New Game';
+
 export const RANGE_VARIANTS: Range = { min: 3, max: 10 };
 
 export const RANGE_REPEATS: Range = { min: 1, max: 3 };

@@ -1,0 +1,7 @@
+<button matRipple (click)="openDialog()">Start new game</button>
+
+@if (hasDialog) {
+@defer (when hasDialog) {
+<app-new-game [closeOnExit]="false"></app-new-game>
+}
+}
