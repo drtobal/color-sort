@@ -3,7 +3,7 @@
     <app-new-bottle (click)="addBottle()" [disabled]="addedBottles !== 0"></app-new-bottle>
 </div>
 
-<div class="container">
+<div class="container bottles-container">
     <div class="bottles" [ngStyle]="bottlesContainer()" [@bottles]="bottles.length">
         @for (bottle of bottles; track index; let index = $index) {
         <app-bottle class="bottle" [bottleHeight]="bottleHeight" [bottle]="bottle" [bottleSize]="bottleSize"
