@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestro
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SorterService } from '../../services/sorter/sorter.service';
-import { Bottle, BottleDragData, ColorSelected, NewGame } from '../../types';
+import { Bottle, BottleDragData, NewGame } from '../../types';
 import { BottleComponent } from '../bottle/bottle.component';
 import { NewGameComponent } from '../new-game/new-game.component';
 import { DEFAULT_BOTTLE_SIZE, DEFAULT_GAME_NAME, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '../../constants';
@@ -35,8 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
   isCompleted: boolean = false;
 
   selectedBottle: number | null = null;
-
-  colorSelected: ColorSelected | null = null; // bottle, color
 
   newGameSub?: Subscription;
 
@@ -87,11 +85,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.gameService.saveCompletedLevel(this.gameName);
       this.nextLevel();
     }
-  }
-
-  selectColor(color: ColorSelected): void {
-    this.colorSelected = color;
-    this.changeDetectorRef.detectChanges();
   }
 
   selectBottle(bottle: number): void {

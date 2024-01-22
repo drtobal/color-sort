@@ -26,8 +26,3 @@ export type Range = {
     min: number;
     max: number;
 };
-
-export type ColorSelected = {
-    bottle: number;
-    color: number;
-};
