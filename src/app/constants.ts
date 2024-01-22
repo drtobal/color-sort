@@ -26,7 +26,7 @@ export const BOTTLE_WIDTH = 1.5;
 
 export const BOTTLE_HEIGHT = 6;
 
-export const COLOR_GAP = 0.25;
+export const TRANSITION_DURATION_COMPLEX =375;
 
 export const LEVELS: NewGame[] = [
     { name: 'Level 1', variants: 2, repeats: 1, bottleSize: 2 },

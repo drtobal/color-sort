@@ -1,25 +1,32 @@
 @import "src/variables.scss";
 
 .bottle {
-    height: 6rem;
-    width: 1.5rem;
     position: relative;
-    border-bottom-left-radius: 99rem;
-    border-bottom-right-radius: 99rem;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    border: 2px solid rgba(0, 0, 0, 0.6);
     cursor: pointer;
-    background-color: white;
-    gap: 0.025rem;
+
+    > * {
+        pointer-events: none;
+    }
 }
 
 .color {
     position: absolute;
-    transition: transition_standard(bottom);
-    border-radius: 999rem;
+    transition: transition_standard(all);
 
-    &.selected {
-        
+    .color-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        .ball {
+            border-radius: 999rem;
+            width: 90%;
+            height: 90%;
+        }
     }
 }

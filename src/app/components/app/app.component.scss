@@ -9,22 +9,26 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
 }
 
 .bottle {
     cursor: pointer;
     display: flex;
     justify-content: center;
+    border-bottom-left-radius: 99rem;
+    border-bottom-right-radius: 99rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    background-color: white;
 
     &.cdk-drag-dragging {
         z-index: 3;
     }
 }
 
-.bottle-container {
-    width: 2rem;
-
-    .bottle {
-        transform: none !important;
-    }
+.color {
+    transition: transition_standard(all);
+    border-radius: 999rem;
 }

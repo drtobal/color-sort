@@ -1,8 +1,12 @@
 @if (bottle) {
-<div class="bottle" (click)="selectBottle.emit()" [ngStyle]="getBottleStyle()">
+<div class="bottle" [ngStyle]="getBottleStyle()">
     @for (item of bottle; track index; let index = $index) {
     <div class="color" [ngClass]="{selected: isSelected && $last}"
-        [ngStyle]="getColorStyle(item, index, isSelected && $last)"></div>
+        [ngStyle]="getColorStyle(index, isSelected && $last)">
+        <div class="color-inner">
+            <div class="ball" [ngStyle]="getColorBg(item)"></div>
+        </div>
+    </div>
     }
 </div>
 }

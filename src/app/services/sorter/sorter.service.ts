@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { COLORS, DEFAULT_BOTTLE_SIZE, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '../../constants';
 import { Bottle, MoveColorAction } from '../../types';
+import { UtilService } from '../util/util.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,8 @@ export class SorterService {
   }
 
   moveColor(source: Bottle, target: Bottle, bottleSize: number = DEFAULT_BOTTLE_SIZE): MoveColorAction {
+    source = UtilService.deepClone(source);
+    target = UtilService.deepClone(target);
     let moved: boolean = false;
     if (target.length >= bottleSize) return { source, target, moved };
 
