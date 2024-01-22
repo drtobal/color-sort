@@ -16,6 +16,7 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     margin: 0;
+    margin-right: auto;
 }
 
 .bottle {
@@ -37,4 +38,8 @@
 .color {
     transition: transition_standard(all);
     border-radius: 999rem;
+}
+
+.footer {
+    margin-top: 1rem;
 }

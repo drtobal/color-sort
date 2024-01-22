@@ -2,15 +2,16 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inje
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SorterService } from '../../services/sorter/sorter.service';
-import { Bottle, BottleDragData, NewGame } from '../../types';
+import { AnyObject, Bottle, BottleDragData, NewGame } from '../../types';
 import { BottleComponent } from '../bottle/bottle.component';
-import { NewGameComponent } from '../new-game/new-game.component';
 import { BOTTLE_WIDTH, DEFAULT_BOTTLE_SIZE, DEFAULT_GAME_NAME, DEFAULT_REPEATS, DEFAULT_VARIANTS, REM_PX, TRANSITION_DURATION_COMPLEX, TRANSITION_ENTER } from '../../constants';
 import { Subscription } from 'rxjs';
 import { GameService } from '../../services/game/game.service';
 import { NewGameButtonComponent } from '../new-game-button/new-game-button.component';
 import { UtilService } from '../../services/util/util.service';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { NewBottleComponent } from '../new-bottle/new-bottle.component';
+import { FooterComponent } from '../footer/footer.component';
 
 const ENTER_A = style({ opacity: 0, transform: 'translateY(2rem)' });
 const ENTER_B = style({ opacity: 1, transform: 'none' });
@@ -18,7 +19,7 @@ const ENTER_B = style({ opacity: 1, transform: 'none' });
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, BottleComponent, NewGameComponent, NewGameButtonComponent],
+  imports: [CommonModule, RouterOutlet, BottleComponent, NewGameButtonComponent, NewBottleComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,6 +53,8 @@ export class AppComponent implements OnInit, OnDestroy {
   selectedBottle: number | null = null;
 
   isMoving: boolean = false;
+
+  addedBottles: number = 0;
 
   newGameSub?: Subscription;
 
@@ -91,6 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     await UtilService.wait((bottlesLength * 50) + 200);
 
+    this.addedBottles = 0;
     this.variants = newGame.variants;
     this.repeats = newGame.repeats;
     this.bottleSize = newGame.bottleSize;
@@ -109,6 +113,14 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.isCompleted) {
       this.gameService.saveCompletedLevel(this.gameName);
       this.nextLevel();
+    }
+  }
+
+  addBottle(): void {
+    if (this.addedBottles === 0) {
+      this.bottles.push([]);
+      this.addedBottles = 1;
+      this.changeDetectorRef.detectChanges();
     }
   }
 
@@ -191,5 +203,9 @@ export class AppComponent implements OnInit, OnDestroy {
     dummy.remove();
 
     return true;
+  }
+
+  bottlesContainer(): AnyObject {
+    return {'min-height': `${this.bottleHeight}rem`};
   }
 }

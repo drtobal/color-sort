@@ -1,0 +1,14 @@
+.button {
+    background: linear-gradient(0deg, rgba(125, 14, 81, 1) 0%, rgba(158, 10, 100, 1) 100%);
+    border-radius: 999rem;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    transition: transition_standard(all);
+
+    &:disabled {
+        color: black;
+        background: #c864a6;
+    }
+}

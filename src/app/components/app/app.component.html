@@ -1,15 +1,10 @@
-<div class="header">
-    <div class="container">
-        <app-new-game-button></app-new-game-button>
-    </div>
-</div>
-
-<div class="container text-center">
+<div class="container flex-center">
     <h1 class="title">{{gameName}}</h1>
+    <app-new-bottle (click)="addBottle()" [disabled]="addedBottles !== 0"></app-new-bottle>
 </div>
 
 <div class="container">
-    <div class="bottles" [@bottles]="bottles.length">
+    <div class="bottles" [ngStyle]="bottlesContainer()" [@bottles]="bottles.length">
         @for (bottle of bottles; track index; let index = $index) {
         <app-bottle class="bottle" [bottleHeight]="bottleHeight" [bottle]="bottle" [bottleSize]="bottleSize"
             [isSelected]="selectedBottle === index" (click)="selectBottle(index)"></app-bottle>
@@ -17,18 +12,4 @@
     </div>
 </div>
 
-<!--
-@if (isCompleted) {
-@defer (when isCompleted) {
-<app-new-game></app-new-game>
-}
-}
--->
-
-<div style="text-align: center;">
-    <br />
-    <br />
-    {{bottles | json}}
-    <br />
-    <p>finished: {{isCompleted}}</p>
-</div>
+<app-footer class="footer"></app-footer>
