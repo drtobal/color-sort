@@ -16,6 +16,7 @@ import { FooterComponent } from '../footer/footer.component';
 const ENTER_A = style({ opacity: 0, transform: 'translateY(2rem)' });
 const ENTER_B = style({ opacity: 1, transform: 'none' });
 
+/** displays the game container */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -33,31 +34,43 @@ const ENTER_B = style({ opacity: 1, transform: 'none' });
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  /** array of bottles of the game */
   bottles: Bottle[] = [];
 
   /** check if the code is running in server side or browser */
   isBrowser: boolean = false;
 
+  /** color variants to play with */
   variants: number = DEFAULT_VARIANTS;
 
+  /** bottles of the same color */
   repeats: number = DEFAULT_REPEATS;
 
+  /** colors per bottle */
   bottleSize: number = DEFAULT_BOTTLE_SIZE;
 
+  /** game name, currently only have level name */
   gameName: string = DEFAULT_GAME_NAME;
 
+  /** calculated bottle html element height in base of the size */
   bottleHeight: number = 0;
 
+  /** check if game is completed, use this to display a contratulations message (TODO) */
   isCompleted: boolean = false;
 
+  /** currently moving color bottle */
   selectedBottle: number | null = null;
 
+  /** block any interaction while color animation is in progress */
   isMoving: boolean = false;
 
+  /** additional empty bottles added */
   addedBottles: number = 0;
 
+  /** subscription to new game */
   newGameSub?: Subscription;
 
+  /** component constructor */
   constructor(
     private sorterService: SorterService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -68,6 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
+  /** set up the UI */
   ngOnInit(): void {
     if (this.isBrowser) {
       this.nextLevel();
@@ -76,10 +90,12 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** clea up */
   ngOnDestroy(): void {
     this.newGameSub?.unsubscribe();
   }
 
+  /** go to next level */
   nextLevel(): void {
     const level = this.gameService.getNextLevel();
     if (level) {
@@ -87,6 +103,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** reset entire game and start a new one */
   async onNewGame(newGame: NewGame): Promise<void> {
     const bottlesLength = this.bottles.length;
     this.bottles = [];
@@ -104,10 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  getDragData(bottle: Bottle, index: number): BottleDragData {
-    return { bottle, index };
-  }
-
+  /** check if game is completed */
   checkCompleted(): void {
     this.isCompleted = this.sorterService.checkBottlesFinished(this.bottles, this.bottleSize);
     if (this.isCompleted) {
@@ -116,6 +130,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** add a empty bottle */
   addBottle(): void {
     if (this.addedBottles === 0) {
       this.bottles.push([]);
@@ -124,6 +139,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** select a bottle, can select a new bottle, de-select bottle, change selection or move a color */
   async selectBottle(bottle: number): Promise<boolean> {
     if (this.isMoving) {
       return false;
@@ -152,8 +168,6 @@ export class AppComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    console.log(result);
-
     this.isMoving = true;
     await this.moveColor(sourceIdx, targetIdx);
     this.selectedBottle = null;
@@ -165,6 +179,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  /** move color animations */
   async moveColor(sourceIndex: number, targetIndex: number): Promise<boolean> {
     const source = this.elementRef.nativeElement.querySelector(`app-bottle:nth-child(${sourceIndex + 1}) > .bottle`);
     const target = this.elementRef.nativeElement.querySelector(`app-bottle:nth-child(${targetIndex + 1}) > .bottle`) as HTMLElement;
@@ -205,6 +220,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  /** set css styles of bottles container */
   bottlesContainer(): AnyObject {
     return {'min-height': `${this.bottleHeight}rem`};
   }

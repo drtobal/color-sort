@@ -4,21 +4,25 @@ import { LAST_GAME_LEVEL_LS, LEVELS } from '../../constants';
 import { NewGame } from '../../types';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
+/** singleton service for global storage */
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-
+  /** new game request suscriber */
   private _newGame = new Subject<NewGame>();
 
+  /** service constructor */
   constructor(
     private localStorageService: LocalStorageService,
   ) { /* do nothing */ }
 
+  /** get the new game subscriber */
   get newGame(): Subject<NewGame> {
     return this._newGame;
   }
 
+  /** get the next level available, first if can't get it */
   getNextLevel(): NewGame {
     const lastLevel = this.localStorageService.getData<NewGame>(LAST_GAME_LEVEL_LS);
     if (lastLevel) {

@@ -3,18 +3,18 @@ import { COLORS, DEFAULT_BOTTLE_SIZE, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '
 import { Bottle, MoveColorAction } from '../../types';
 import { UtilService } from '../util/util.service';
 
+/** utilities functions to interact with game bottles */
 @Injectable({
   providedIn: 'root'
 })
 export class SorterService {
-
-  constructor() { }
-
+  /** generate a new array of bottles with given configuration */
   generateBottles(variants: number = DEFAULT_VARIANTS, repeats: number = DEFAULT_REPEATS, bottleSize: number = DEFAULT_BOTTLE_SIZE): Bottle[] {
     const colors = this.transformBottles(this.suffle(this.multipliArray(this.range(1, variants), bottleSize, repeats)), bottleSize);
     return colors.concat([[]]);
   }
 
+  /** multiply array n times */
   multipliArray<T>(items: T[], bottleSize: number, repeats: number): T[] {
     const baseArray: T[] = JSON.parse(JSON.stringify(items));
     for (let x = 0; x < repeats; x++) {
@@ -25,6 +25,7 @@ export class SorterService {
     return items;
   }
 
+  /** move a color from one bottle to another */
   moveColor(source: Bottle, target: Bottle, bottleSize: number = DEFAULT_BOTTLE_SIZE): MoveColorAction {
     source = UtilService.deepClone(source);
     target = UtilService.deepClone(target);
@@ -33,6 +34,7 @@ export class SorterService {
 
     if (source.length === 0) return { source, target, moved };
 
+    // TODO: restrict move a color only if last color is the same, make this a optional configuration for some levels
     // if (target.length > 0 && source[0] !== target[0]) return { source, target, moved };
 
     const variant = source.pop();
@@ -44,6 +46,7 @@ export class SorterService {
     return { source, target, moved };
   }
 
+  /** check if all bottles are completed */
   checkBottlesFinished(bottles: Bottle[], bottleSize: number = DEFAULT_BOTTLE_SIZE): boolean {
     const bottlesLength = bottles.length;
     for (let x = 0; x < bottlesLength; x++) {
@@ -62,6 +65,7 @@ export class SorterService {
     return true;
   }
 
+  /** transform arrays of numbers into bottles object */
   transformBottles(numbers: number[], size: number): Bottle[] {
     const bottles: Bottle[] = [];
     while (numbers.length > 0) {
@@ -70,6 +74,7 @@ export class SorterService {
     return bottles;
   }
 
+  /** generate a consecutive array of numbers given min and max values */
   range(min: number, max: number): number[] {
     const rangeArray: number[] = [];
     for (let x = min; x <= max; x++) {
@@ -89,6 +94,7 @@ export class SorterService {
     return array;
   }
 
+  /** get css color for given variant */
   getVariantColor(variant: number): string {
     return COLORS[variant];
   }

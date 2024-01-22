@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+/** displays a footer for the site */
 @Component({
   selector: 'app-footer',
   standalone: true,

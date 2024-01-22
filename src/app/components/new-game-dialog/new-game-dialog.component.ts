@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
+/** currently unused component to configure a new game */
 @Component({
   selector: 'app-new-game-dialog',
   standalone: true,
@@ -16,7 +17,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewGameDialogComponent {
-
+  /** form to configure a new game */
   form = new FormGroup({
     variants: new FormControl(DEFAULT_VARIANTS, [Validators.required, Validators.min(RANGE_VARIANTS.min), Validators.max(RANGE_VARIANTS.max)]),
     repeats: new FormControl(DEFAULT_REPEATS, [Validators.required, Validators.min(RANGE_REPEATS.min), Validators.max(RANGE_REPEATS.max)]),
@@ -30,6 +31,7 @@ export class NewGameDialogComponent {
     private gameService: GameService,
   ) { /* do nothing */ }
 
+  /** starts a new game */
   newGame(): void {
     if (this.form.valid) {
       this.gameService.newGame.next({

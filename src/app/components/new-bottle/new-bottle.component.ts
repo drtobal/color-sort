@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+/** button to add a new bottle */
 @Component({
   selector: 'app-new-bottle',
   standalone: true,
@@ -10,5 +11,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewBottleComponent {
+  /** check if button is disabled */
   @Input() disabled: boolean = true;
 }
