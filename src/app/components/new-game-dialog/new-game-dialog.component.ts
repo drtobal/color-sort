@@ -5,12 +5,12 @@ import { DEFAULT_BOTTLE_SIZE, DEFAULT_GAME_NAME, DEFAULT_REPEATS, DEFAULT_VARIAN
 import { GameService } from '../../services/game/game.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-game-dialog',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatInputModule, MatRippleModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatDialogModule, MatInputModule, MatRippleModule],
   templateUrl: './new-game-dialog.component.html',
   styleUrl: './new-game-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

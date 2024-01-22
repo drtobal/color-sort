@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { BOTTLE_HEIGHT, BOTTLE_WIDTH, DEFAULT_BOTTLE_SIZE } from '../../constants';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { BOTTLE_WIDTH, DEFAULT_BOTTLE_SIZE } from '../../constants';
 import { SorterService } from '../../services/sorter/sorter.service';
 import { AnyObject, Bottle } from '../../types';
 
@@ -17,6 +17,8 @@ export class BottleComponent {
 
   @Input() isSelected: boolean = false;
 
+  @Input() bottleHeight: number = 0;
+
   @Input() bottleSize: number = DEFAULT_BOTTLE_SIZE;
 
   constructor(
@@ -27,7 +29,7 @@ export class BottleComponent {
   getBottleStyle(): AnyObject {
     return {
       width: `${BOTTLE_WIDTH}rem`,
-      height: `${BOTTLE_HEIGHT}rem`,
+      height: `${this.bottleHeight}rem`,
     };
   }
 
@@ -39,7 +41,7 @@ export class BottleComponent {
       bottom: `${index * BOTTLE_WIDTH}rem`,
     };
     if (selected) {
-      style['bottom'] = `${BOTTLE_HEIGHT + 1}rem`;
+      style['bottom'] = `${this.bottleHeight + 1}rem`;
     }
     return style;
   }

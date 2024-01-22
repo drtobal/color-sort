@@ -5,11 +5,15 @@ import { SorterService } from '../../services/sorter/sorter.service';
 import { Bottle, BottleDragData, NewGame } from '../../types';
 import { BottleComponent } from '../bottle/bottle.component';
 import { NewGameComponent } from '../new-game/new-game.component';
-import { BOTTLE_HEIGHT, BOTTLE_WIDTH, DEFAULT_BOTTLE_SIZE, DEFAULT_GAME_NAME, DEFAULT_REPEATS, DEFAULT_VARIANTS, REM_PX, TRANSITION_DURATION_COMPLEX } from '../../constants';
+import { BOTTLE_WIDTH, DEFAULT_BOTTLE_SIZE, DEFAULT_GAME_NAME, DEFAULT_REPEATS, DEFAULT_VARIANTS, REM_PX, TRANSITION_DURATION_COMPLEX, TRANSITION_ENTER } from '../../constants';
 import { Subscription } from 'rxjs';
 import { GameService } from '../../services/game/game.service';
 import { NewGameButtonComponent } from '../new-game-button/new-game-button.component';
 import { UtilService } from '../../services/util/util.service';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+
+const ENTER_A = style({ opacity: 0, transform: 'translateY(2rem)' });
+const ENTER_B = style({ opacity: 1, transform: 'none' });
 
 @Component({
   selector: 'app-root',
@@ -18,6 +22,14 @@ import { UtilService } from '../../services/util/util.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('bottles', [
+      transition('* => *', [
+        query(':enter', [ENTER_A, stagger(50, [animate(TRANSITION_ENTER, ENTER_B)]),], { optional: true }),
+        query(':leave', [ENTER_B, stagger(50, [animate(TRANSITION_ENTER, ENTER_A)]),], { optional: true }),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   bottles: Bottle[] = [];
@@ -32,6 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
   bottleSize: number = DEFAULT_BOTTLE_SIZE;
 
   gameName: string = DEFAULT_GAME_NAME;
+
+  bottleHeight: number = 0;
 
   isCompleted: boolean = false;
 
@@ -70,11 +84,18 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  onNewGame(newGame: NewGame): void {
+  async onNewGame(newGame: NewGame): Promise<void> {
+    const bottlesLength = this.bottles.length;
+    this.bottles = [];
+    this.changeDetectorRef.detectChanges();
+
+    await UtilService.wait((bottlesLength * 50) + 200);
+
     this.variants = newGame.variants;
     this.repeats = newGame.repeats;
     this.bottleSize = newGame.bottleSize;
     this.gameName = newGame.name;
+    this.bottleHeight = (newGame.bottleSize * BOTTLE_WIDTH) + 0.5;
     this.bottles = this.sorterService.generateBottles(this.variants, this.repeats, this.bottleSize);
     this.changeDetectorRef.detectChanges();
   }
@@ -164,7 +185,7 @@ export class AppComponent implements OnInit, OnDestroy {
     await UtilService.wait(TRANSITION_DURATION_COMPLEX);
 
     const bottleLength = this.bottles[targetIndex].length;
-    dummy.style.top = `${targetPosition.top + (REM_PX * (BOTTLE_HEIGHT - (BOTTLE_WIDTH * (bottleLength + 1))))}px`;
+    dummy.style.top = `${targetPosition.top + (REM_PX * (this.bottleHeight - (BOTTLE_WIDTH * (bottleLength + 1))))}px`;
 
     await UtilService.wait(TRANSITION_DURATION_COMPLEX);
     dummy.remove();

@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: 'Changa', sans-serif;
+}
 
 *,
 :after,
@@ -32,6 +38,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
+@media (min-width: 768px) {
+    .container,
+    .container-md,
+    .container-sm {
+        max-width: 720px;
+    }
+}
+
 @media (min-width: 992px) {
     .container,
     .container-lg,
@@ -41,22 +55,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-@media (min-width: 768px) {
-    .container,
-    .container-md,
-    .container-sm {
-        max-width: 720px;
-    }
-}
-
-@media (min-width: 1200px) {
+/*@media (min-width: 1200px) {
     .container,
     .container-lg,
     .container-md,
     .container-sm {
         max-width: 1140px;
     }
-}
+}*/
 
 .d-flex {
     display: flex;

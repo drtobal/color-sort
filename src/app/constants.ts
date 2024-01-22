@@ -24,13 +24,27 @@ export const REM_PX = 16;
 
 export const BOTTLE_WIDTH = 1.5;
 
-export const BOTTLE_HEIGHT = 6;
+export const DECELERATION_CURVE_TIMING_FUNCTION = 'cubic-bezier(0, 0, 0.2, 1)';
 
-export const TRANSITION_DURATION_COMPLEX =375;
+export const STANDARD_CURVE_TIMING_FUNCTION = 'cubic-bezier(0.4, 0, 0.2, 1)';
+
+export const ACCELERATION_CURVE_TIMING_FUNCTION = 'cubic-bezier(0.4, 0, 1, 1)';
+
+export const SHARP_CURVE_TIMING_FUNCTION = 'cubic-bezier(0.4, 0, 0.6, 1)';
+
+export const TRANSITION_DURATION_COMPLEX = 375;
+
+export const TRANSITION_DURATION_ENTERING = 225;
+
+export const TRANSITION_DURATION_EXITING = 195;
+
+export const TRANSITION_ENTER = `${TRANSITION_DURATION_ENTERING}ms ${DECELERATION_CURVE_TIMING_FUNCTION}`;
+
+export const TRANSITION_EXIT_PERMANENT = `${TRANSITION_DURATION_EXITING}ms ${ACCELERATION_CURVE_TIMING_FUNCTION}`;
 
 export const LEVELS: NewGame[] = [
-    { name: 'Level 1', variants: 2, repeats: 1, bottleSize: 2 },
-    { name: 'Level 2', variants: 3, repeats: 1, bottleSize: 2 },
+    { name: 'Level 1', variants: 3, repeats: 1, bottleSize: 2 },
+    { name: 'Level 2', variants: 3, repeats: 1, bottleSize: 3 },
     { name: 'Level 3', variants: 3, repeats: 1, bottleSize: 3 },
     { name: 'Level 4', variants: 3, repeats: 1, bottleSize: 4 },
     { name: 'Level 5', variants: 4, repeats: 1, bottleSize: 3 },

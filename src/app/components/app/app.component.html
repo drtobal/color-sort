@@ -5,14 +5,16 @@
 </div>
 
 <div class="container text-center">
-    {{gameName}}
+    <h1 class="title">{{gameName}}</h1>
 </div>
 
-<div class="bottles">
-    @for (bottle of bottles; track index; let index = $index) {
-    <app-bottle class="bottle" [bottle]="bottle" [bottleSize]="bottleSize" [isSelected]="selectedBottle === index"
-        (click)="selectBottle(index)"></app-bottle>
-    }
+<div class="container">
+    <div class="bottles" [@bottles]="bottles.length">
+        @for (bottle of bottles; track index; let index = $index) {
+        <app-bottle class="bottle" [bottleHeight]="bottleHeight" [bottle]="bottle" [bottleSize]="bottleSize"
+            [isSelected]="selectedBottle === index" (click)="selectBottle(index)"></app-bottle>
+        }
+    </div>
 </div>
 
 <!--
