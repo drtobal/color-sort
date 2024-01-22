@@ -4,7 +4,7 @@ export type AnyObject = {
     [prop: string]: any;
 };
 
-export type MoveLiquidAction = {
+export type MoveColorAction = {
     source: Bottle;
     target: Bottle;
     moved: boolean;

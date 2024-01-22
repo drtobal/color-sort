@@ -8,12 +8,10 @@
     {{gameName}}
 </div>
 
-<div class="bottles" cdkDropListGroup>
+<div class="bottles">
     @for (bottle of bottles; track index; let index = $index) {
-    <div cdkDropList (cdkDropListDropped)="cdkDropListDropped($event)" [cdkDropListData]="[getDragData(bottle, index)]"
-        class="bottle-container">
-        <app-bottle class="bottle" cdkDrag (cdkDragEnded)="cdkDragEnded($event)"
-            [cdkDragData]="getDragData(bottle, index)" [bottle]="bottle" [bottleSize]="bottleSize">
+    <div class="bottle-container">
+        <app-bottle class="bottle" [bottle]="bottle" [bottleSize]="bottleSize">
         </app-bottle>
     </div>
     }

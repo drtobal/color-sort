@@ -95,7 +95,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const sourceIdx = event.item.data.index;
       const targetIdx = event.container.data[0].index;
       if (this.bottles[sourceIdx] && this.bottles[targetIdx]) {
-        const result = this.sorterService.moveLiquid(this.bottles[sourceIdx], this.bottles[targetIdx], this.bottleSize);
+        const result = this.sorterService.moveColor(this.bottles[sourceIdx], this.bottles[targetIdx], this.bottleSize);
 
         if (result.moved) {
           this.bottles[sourceIdx] = result.source;

@@ -15,26 +15,14 @@
     background-color: white;
 }
 
-* {
-    pointer-events: none;
-}
+.color {
+    position: relative;
+    width: 100%;
+    --bs-aspect-ratio: 100%;
 
-::ng-deep {
-    app-bottle.cdk-drag-preview .bottle {
-        transform: rotateZ(35deg);
-        animation: drag-preview 0.25s linear;
-    }
-
-    .bottle-container.cdk-drop-list-dragging app-bottle .bottle {
-        box-shadow: 0 4px 8px -1px rgba(29, 119, 214, 0.4), 0 8px 10px 0 rgba(29, 119, 214, 0.28), 0 2px 20px 0 rgba(29, 119, 214, 0.24);
-    }
-}
-
-@keyframes drag-preview {
-    0% {
-        transform: rotateZ(0);
-    }
-    100% {
-        transform: rotateZ(35deg);
+    &::before {
+        display: block;
+        padding-top: var(--bs-aspect-ratio);
+        content: "";
     }
 }

@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'liquid-sort' title`, () => {
+  it(`should have the 'color-sort' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('liquid-sort');
+    expect(app.title).toEqual('color-sort');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, liquid-sort');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, color-sort');
   });
 });

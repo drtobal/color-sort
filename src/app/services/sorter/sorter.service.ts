@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { COLORS, DEFAULT_BOTTLE_SIZE, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '../../constants';
-import { Bottle, MoveLiquidAction } from '../../types';
+import { Bottle, MoveColorAction } from '../../types';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class SorterService {
   constructor() { }
 
   generateBottles(variants: number = DEFAULT_VARIANTS, repeats: number = DEFAULT_REPEATS, bottleSize: number = DEFAULT_BOTTLE_SIZE): Bottle[] {
-    const liquids = this.transformBottles(this.suffle(this.multipliArray(this.range(1, variants), bottleSize, repeats)), bottleSize);
-    return liquids.concat([[]]);
+    const colors = this.transformBottles(this.suffle(this.multipliArray(this.range(1, variants), bottleSize, repeats)), bottleSize);
+    return colors.concat([[]]);
   }
 
   multipliArray<T>(items: T[], bottleSize: number, repeats: number): T[] {
@@ -24,7 +24,7 @@ export class SorterService {
     return items;
   }
 
-  moveLiquid(source: Bottle, target: Bottle, bottleSize: number = DEFAULT_BOTTLE_SIZE): MoveLiquidAction {
+  moveColor(source: Bottle, target: Bottle, bottleSize: number = DEFAULT_BOTTLE_SIZE): MoveColorAction {
     let moved: boolean = false;
     if (target.length >= bottleSize) return { source, target, moved };
 

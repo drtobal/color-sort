@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "liquid-sort": {
+    "color-sort": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/liquid-sort",
+            "outputPath": "dist/color-sort",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "liquid-sort:build:production"
+              "buildTarget": "color-sort:build:production"
             },
             "development": {
-              "buildTarget": "liquid-sort:build:development"
+              "buildTarget": "color-sort:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "liquid-sort:build"
+            "buildTarget": "color-sort:build"
           }
         },
         "test": {

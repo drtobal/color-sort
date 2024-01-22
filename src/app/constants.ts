@@ -18,7 +18,7 @@ export const BOTTLE_MAX: number = 90;
 
 export const HAS_LS: boolean = !!(typeof window !== 'undefined' && window.localStorage);
 
-export const LAST_GAME_LEVEL_LS = 'liquid-sort-last-game-level';
+export const LAST_GAME_LEVEL_LS = 'color-sort-last-game-level';
 
 export const LEVELS: NewGame[] = [
     { name: 'Level 1', variants: 2, repeats: 1, bottleSize: 2 },
