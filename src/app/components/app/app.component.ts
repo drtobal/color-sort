@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestro
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SorterService } from '../../services/sorter/sorter.service';
-import { Bottle, BottleDragData, NewGame } from '../../types';
+import { Bottle, BottleDragData, ColorSelected, NewGame } from '../../types';
 import { BottleComponent } from '../bottle/bottle.component';
-import { CdkDragDrop, CdkDragRelease, DragDropModule } from '@angular/cdk/drag-drop';
 import { NewGameComponent } from '../new-game/new-game.component';
 import { DEFAULT_BOTTLE_SIZE, DEFAULT_GAME_NAME, DEFAULT_REPEATS, DEFAULT_VARIANTS } from '../../constants';
 import { Subscription } from 'rxjs';
@@ -14,7 +13,7 @@ import { NewGameButtonComponent } from '../new-game-button/new-game-button.compo
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, BottleComponent, DragDropModule, NewGameComponent, NewGameButtonComponent],
+  imports: [CommonModule, RouterOutlet, BottleComponent, NewGameComponent, NewGameButtonComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
   gameName: string = DEFAULT_GAME_NAME;
 
   isCompleted: boolean = false;
+
+  selectedBottle: number | null = null;
+
+  colorSelected: ColorSelected | null = null; // bottle, color
 
   newGameSub?: Subscription;
 
@@ -74,10 +77,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  cdkDragEnded(event: CdkDragRelease): void {
-    event.source.reset();
-  }
-
   getDragData(bottle: Bottle, index: number): BottleDragData {
     return { bottle, index };
   }
@@ -90,20 +89,33 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  cdkDropListDropped(event: CdkDragDrop<any>): void {
-    if (event.container.data.length === 1) {
-      const sourceIdx = event.item.data.index;
-      const targetIdx = event.container.data[0].index;
+  selectColor(color: ColorSelected): void {
+    this.colorSelected = color;
+    this.changeDetectorRef.detectChanges();
+  }
+
+  selectBottle(bottle: number): void {
+    if (this.selectedBottle !== null && this.selectedBottle > -1) {
+      const sourceIdx = this.selectedBottle;
+      const targetIdx = bottle;
+
       if (this.bottles[sourceIdx] && this.bottles[targetIdx]) {
         const result = this.sorterService.moveColor(this.bottles[sourceIdx], this.bottles[targetIdx], this.bottleSize);
 
         if (result.moved) {
           this.bottles[sourceIdx] = result.source;
           this.bottles[targetIdx] = result.target;
-          this.changeDetectorRef.detectChanges();
           this.checkCompleted();
+          this.selectedBottle = null;
+        } else {
+          this.selectedBottle = bottle;
         }
+
+        this.changeDetectorRef.detectChanges();
       }
+    } else {
+      this.selectedBottle = bottle;
+      this.changeDetectorRef.detectChanges();
     }
   }
 }

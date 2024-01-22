@@ -20,6 +20,14 @@ export const HAS_LS: boolean = !!(typeof window !== 'undefined' && window.localS
 
 export const LAST_GAME_LEVEL_LS = 'color-sort-last-game-level';
 
+export const REM_PX = 16;
+
+export const BOTTLE_WIDTH = 1.5;
+
+export const BOTTLE_HEIGHT = 6;
+
+export const COLOR_GAP = 0.25;
+
 export const LEVELS: NewGame[] = [
     { name: 'Level 1', variants: 2, repeats: 1, bottleSize: 2 },
     { name: 'Level 2', variants: 3, repeats: 1, bottleSize: 2 },

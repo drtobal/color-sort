@@ -11,7 +11,8 @@
 <div class="bottles">
     @for (bottle of bottles; track index; let index = $index) {
     <div class="bottle-container">
-        <app-bottle class="bottle" [bottle]="bottle" [bottleSize]="bottleSize">
+        <app-bottle class="bottle" [bottle]="bottle" [bottleSize]="bottleSize" [isSelected]="selectedBottle === index"
+            (selectBottle)="selectBottle(index)">
         </app-bottle>
     </div>
     }

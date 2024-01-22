@@ -1,7 +1,8 @@
 @if (bottle) {
-<div class="bottle" [@colorAnimation]="bottle.length">
-    @for (item of bottle; track $index) {
-    <div class="color" [ngStyle]="getColorStyle(item)"></div>
+<div class="bottle" (click)="selectBottle.emit()" [ngStyle]="getBottleStyle()">
+    @for (item of bottle; track index; let index = $index) {
+    <div class="color" [ngClass]="{selected: isSelected && $last}"
+        [ngStyle]="getColorStyle(item, index, isSelected && $last)"></div>
     }
 </div>
 }
