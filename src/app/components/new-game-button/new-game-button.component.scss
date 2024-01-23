@@ -1,0 +1,6 @@
+@use '@angular/material' as mat;
+
+::ng-deep {
+    @include mat.core();
+    @include mat.core-theme(mat.$indigo-palette);
+}
