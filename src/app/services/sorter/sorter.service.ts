@@ -16,11 +16,11 @@ export class SorterService {
 
   /** multiply array n times */
   multipliArray<T>(items: T[], bottleSize: number, repeats: number): T[] {
-    const baseArray: T[] = JSON.parse(JSON.stringify(items));
-    for (let x = 0; x < repeats; x++) {
-      for (let y = 1; y < bottleSize; y++) {
-        items = items.concat(JSON.parse(JSON.stringify(baseArray)) as T[]);
-      }
+    const baseArray = UtilService.deepClone(items);
+    items = [];
+    const loops = bottleSize * repeats;
+    for (let x = 0; x < loops; x++) { // repeat colors amount of bottles and repeated colors size
+      items = items.concat(UtilService.deepClone(baseArray) as T[]);
     }
     return items;
   }
@@ -95,7 +95,7 @@ export class SorterService {
   }
 
   /** get css color for given variant */
-  getVariantColor(variant: number): string {
-    return COLORS[variant];
+  getVariantColor(variant: number, colors: string[] = COLORS): string {
+    return colors[variant];
   }
 }

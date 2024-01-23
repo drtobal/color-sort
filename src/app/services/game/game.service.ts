@@ -36,6 +36,7 @@ export class GameService {
     return LEVELS[0];
   }
 
+  /** store the completed level data */
   saveCompletedLevel(levelName: string): void {
     const level = LEVELS.find(l => l.name === levelName);
     if (level) {

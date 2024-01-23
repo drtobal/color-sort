@@ -13,8 +13,8 @@ export class UtilService {
   }
 
   /** deep clone a entire object, be careful with objects that have functions or are recursive */
-  static deepClone<T>(obj: T): T {
-    if (typeof structuredClone === 'function') {
+  static deepClone<T>(obj: T, _structuredClone: (d: T) => T = structuredClone): T {
+    if (typeof _structuredClone === 'function') {
       return structuredClone(obj);
     }
     return JSON.parse(JSON.stringify(obj));
