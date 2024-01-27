@@ -10,7 +10,7 @@ import { UtilService } from '../util/util.service';
 export class SorterService {
   /** generate a new array of bottles with given configuration */
   generateBottles(variants: number = DEFAULT_VARIANTS, repeats: number = DEFAULT_REPEATS, bottleSize: number = DEFAULT_BOTTLE_SIZE): Bottle[] {
-    const colors = this.transformBottles(this.suffle(this.multipliArray(this.range(1, variants), bottleSize, repeats)), bottleSize);
+    const colors = this.transformBottles(this.shuffle(this.multipliArray(this.range(1, variants), bottleSize, repeats)), bottleSize);
     return colors.concat([[]]);
   }
 
@@ -83,8 +83,8 @@ export class SorterService {
     return rangeArray;
   }
 
-  /** suffle the array - modern version of the Fisher–Yates shuffle */
-  suffle<T>(array: T[]): T[] {
+  /** shuffle the array - modern version of the Fisher–Yates shuffle */
+  shuffle<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       let temp = array[i];
